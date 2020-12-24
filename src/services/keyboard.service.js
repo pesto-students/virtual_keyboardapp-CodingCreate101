@@ -1,5 +1,6 @@
-import { state } from '../data/keyboard.js';
+import { state } from '../data/keyboard.data.js';
 import { getElementById, getElementsByDataAttribute } from '../utilities.js';
+import { setAlphabetKeysView, setSpecialKeysView } from '../view/keyboard.view.js';
 import { updateTextField } from '../view/textarea.view.js';
 
 getElementById('keyBoardContainer').addEventListener('mouseup', function (e) {
@@ -13,7 +14,7 @@ export function handleKeyPress(letter) {
       state.content = state.content.slice(0, -1);
       break;
     case 'Caps Lock':
-      state.capsLock = !state.capsLock;
+      toggleCapsLockKey();
       break;
     case 'Shift':
       toggleShiftKey();
@@ -38,45 +39,31 @@ export function handleKeyPress(letter) {
 }
 
 const toggleShiftKey = () => (state.shift ? turnOffShiftKey() : turnOnShiftKey());
+const toggleCapsLockKey = () => (state.capsLock ? turnOffCapsLockKey() : turnOnCapsLockKey());
 
+function turnOffCapsLockKey() {
+  state.capsLock = false;
+  getElementsByDataAttribute('active', 'Caps Lock').forEach(key =>
+    key.classList.remove('highLight')
+  );
+  setAlphabetKeysView('small');
+}
+
+function turnOnCapsLockKey() {
+  state.capsLock = true;
+  getElementsByDataAttribute('active', 'Caps Lock').forEach(key => key.classList.add('highLight'));
+  setAlphabetKeysView('caps');
+}
 function turnOnShiftKey() {
   state.shift = true;
-
-  const shiftKeys = getElementsByDataAttribute('active', 'Shift');
-  const alphabetsKeys = getElementsByDataAttribute('keytype', 'alphabet');
-  const specialKeys = getElementsByDataAttribute('keytype', 'special');
-
-  shiftKeys.forEach(key => key.classList.add('highLight'));
-
-  alphabetsKeys.forEach(key => {
-    key.dataset.active = key.dataset.caps;
-    key.children[0].innerHTML = key.dataset.active;
-  });
-
-  specialKeys.forEach(key => {
-    key.dataset.active = key.dataset.special;
-    key.children[0].classList.remove('active');
-    key.children[1].classList.add('active');
-  });
+  getElementsByDataAttribute('active', 'Shift').forEach(key => key.classList.add('highLight'));
+  setAlphabetKeysView('caps');
+  setSpecialKeysView('special');
 }
 
 function turnOffShiftKey() {
   state.shift = false;
-
-  const shiftKeys = getElementsByDataAttribute('active', 'Shift');
-  const alphabetsKeys = getElementsByDataAttribute('keytype', 'alphabet');
-  const specialKeys = getElementsByDataAttribute('keytype', 'special');
-
-  shiftKeys.forEach(key => key.classList.remove('highLight'));
-
-  alphabetsKeys.forEach(key => {
-    key.dataset.active = key.dataset.small;
-    key.children[0].innerHTML = key.dataset.active;
-  });
-
-  specialKeys.forEach(key => {
-    key.dataset.active = key.dataset.caps;
-    key.children[0].classList.add('active');
-    key.children[1].classList.remove('active');
-  });
+  getElementsByDataAttribute('active', 'Shift').forEach(key => key.classList.remove('highLight'));
+  if (!state.capsLock) setAlphabetKeysView('small');
+  setSpecialKeysView('normal');
 }
