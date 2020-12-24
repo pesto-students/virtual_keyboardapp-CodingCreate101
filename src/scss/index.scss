@@ -84,7 +84,19 @@ body {
     }
   }
   .highLight {
-    background: #f00;
+    -webkit-animation: glow 0.7s ease-in-out infinite alternate;
+    -moz-animation: glow 0.7s ease-in-out infinite alternate;
+    animation: glow 0.7s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      background: #ffc062;
+    }
+
+    to {
+      background: #ffe7c4;
+    }
   }
 
   @media (max-width: 1000px) {

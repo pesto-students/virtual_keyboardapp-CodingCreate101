@@ -11,20 +11,20 @@
 
 ## MVP Requirement (Mandatory)
 
-1. Render the keyboard on a page no need to login
+1. Render the keyboard on a page no need to login ✅
 
-   - Do not ask for any authentication, however the app should start right away
-   - It should be a SPA, no navigation is required
+   - Do not ask for any authentication, however the app should start right away ✅
+   - It should be a SPA, no navigation is required ✅
 
 2. Render a `On/Off` button click.
 
-3. Display the typed text in a open text-area
+3. Display the typed text in a open text-area ✅
 
-   - This area should not be editable otherwise
+   - This area should not be editable otherwise ✅
 
 4. Should replicate an actual QWERTY keyboard for mobile machines
 
-5. Render a `CAPs` on/off button with functionality
+5. Render a `CAPs` on/off button with functionality ✅
 
 6. Handle all errors with appropriate error messages
 
