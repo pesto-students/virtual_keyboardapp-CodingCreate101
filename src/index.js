@@ -1,2 +1,5 @@
 import './scss/index.scss';
-console.log('Hello World!');
+import './services/keyboard.service';
+import { renderKeyboard } from './view/keyboard.view.js';
+
+renderKeyboard();
