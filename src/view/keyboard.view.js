@@ -1,4 +1,5 @@
-import { keyboardData } from '../data/keyboard.data.js';
+import { keyboardData, state } from '../data/keyboard.data.js';
+import { mobileTurnOnCapsLockKey } from '../services/keyboard.service.js';
 import { getElementById, getElementsByDataAttribute } from '../utilities.js';
 export function renderKeyboard() {
   const keyBoardContainer = getElementById('keyBoardContainer');
@@ -24,6 +25,24 @@ export function renderKeyboard() {
     keyboardStructure += '</div>';
   });
   keyBoardContainer.innerHTML = keyboardStructure;
+  if (state.isMobile) {
+    getElementsByDataAttribute('active', '⇑').forEach(key => {
+      let touchtime = 0;
+      const delay = 800;
+      key.addEventListener('click', function () {
+        // On Double Click
+        if (new Date().getTime() - touchtime < delay) {
+          state.mobileCapsLock = true;
+          mobileTurnOnCapsLockKey();
+          touchtime = 0;
+        } else {
+          // On Single Click
+          touchtime = new Date().getTime();
+          state.mobileCapsLock = false;
+        }
+      });
+    });
+  }
 }
 
 export const removeKeyboard = () => (getElementById('keyBoardContainer').innerHTML = '');
@@ -66,6 +85,44 @@ export const setSpecialKeysView = specialOrNormal => {
         key.dataset.active = key.dataset.caps;
         key.children[0].classList.add('active');
         key.children[1].classList.remove('active');
+      });
+      break;
+
+    default:
+      break;
+  }
+};
+
+export const setMobileKeysView = specialOrNormalOrCapsOrSmall => {
+  const specialKeys = getElementsByDataAttribute('keytype', 'special');
+  switch (specialOrNormalOrCapsOrSmall) {
+    case 'special':
+      specialKeys.forEach(key => {
+        key.dataset.active = key.dataset.special;
+        key.children[0].innerHTML = key.dataset.active;
+        key.children[1].innerHTML = '';
+      });
+      break;
+
+    case 'normal':
+      specialKeys.forEach(key => {
+        key.dataset.active = key.dataset.caps;
+        key.children[0].innerHTML = key.dataset.active;
+        key.children[1].innerHTML = key.dataset.special;
+      });
+      break;
+
+    case 'caps':
+      specialKeys.forEach(key => {
+        key.dataset.active = key.dataset.caps;
+        key.children[0].innerHTML = key.dataset.active;
+      });
+      break;
+
+    case 'small':
+      specialKeys.forEach(key => {
+        key.dataset.active = key.dataset.small;
+        key.children[0].innerHTML = key.dataset.active;
       });
       break;
 
