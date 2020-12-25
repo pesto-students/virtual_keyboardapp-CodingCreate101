@@ -8,7 +8,215 @@
 //*   }
 //* ],
 
-export const keyboardData = [
+const keyboardDataMobile = [
+  [
+    {
+      caps: 'Q',
+      small: 'q',
+      special: '1',
+      keyType: 'special',
+    },
+    {
+      caps: 'W',
+      small: 'w',
+      special: '2',
+      keyType: 'special',
+    },
+    {
+      caps: 'E',
+      small: 'e',
+      special: '3',
+      keyType: 'special',
+    },
+    {
+      caps: 'R',
+      small: 'r',
+      special: '4',
+      keyType: 'special',
+    },
+    {
+      caps: 'T',
+      small: 't',
+      special: '5',
+      keyType: 'special',
+    },
+    {
+      caps: 'Y',
+      small: 'y',
+      special: '6',
+      keyType: 'special',
+    },
+    {
+      caps: 'U',
+      small: 'u',
+      special: '7',
+      keyType: 'special',
+    },
+    {
+      caps: 'I',
+      small: 'i',
+      special: '8',
+      keyType: 'special',
+    },
+    {
+      caps: 'O',
+      small: 'o',
+      special: '9',
+      keyType: 'special',
+    },
+    {
+      caps: 'P',
+      small: 'p',
+      special: '0',
+      keyType: 'special',
+    },
+  ],
+  [
+    {
+      caps: 'A',
+      small: 'a',
+      special: '@',
+      keyType: 'special',
+    },
+    {
+      caps: 'S',
+      small: 's',
+      special: '#',
+      keyType: 'special',
+    },
+    {
+      caps: 'D',
+      small: 'd',
+      special: '£',
+      keyType: 'special',
+    },
+    {
+      caps: 'F',
+      small: 'f',
+      special: '_',
+      keyType: 'special',
+    },
+    {
+      caps: 'G',
+      small: 'g',
+      special: '&',
+      keyType: 'special',
+    },
+    {
+      caps: 'H',
+      small: 'h',
+      special: '-',
+      keyType: 'special',
+    },
+    {
+      caps: 'J',
+      small: 'j',
+      special: '+',
+      keyType: 'special',
+    },
+    {
+      caps: 'K',
+      small: 'k',
+      special: '(',
+      keyType: 'special',
+    },
+    {
+      caps: 'L',
+      small: 'l',
+      special: ')',
+      keyType: 'special',
+    },
+  ],
+  [
+    {
+      caps: '&#8657;',
+      small: '&#8657;',
+      special: '',
+      keyType: 'functional',
+    },
+    {
+      caps: 'Z',
+      small: 'z',
+      special: '*',
+      keyType: 'special',
+    },
+    {
+      caps: 'X',
+      small: 'x',
+      special: '&#34;',
+      keyType: 'special',
+    },
+    {
+      caps: 'C',
+      small: 'c',
+      special: "'",
+      keyType: 'special',
+    },
+    {
+      caps: 'V',
+      small: 'v',
+      special: ':',
+      keyType: 'special',
+    },
+    {
+      caps: 'B',
+      small: 'b',
+      special: ';',
+      keyType: 'special',
+    },
+    {
+      caps: 'N',
+      small: 'n',
+      special: '!',
+      keyType: 'special',
+    },
+    {
+      caps: 'M',
+      small: 'm',
+      special: '?',
+      keyType: 'special',
+    },
+    {
+      caps: '&#8592;',
+      small: '&#8592;',
+      special: '',
+      keyType: 'functional',
+    },
+  ],
+  [
+    {
+      caps: '?12',
+      small: '?12',
+      special: '',
+      keyType: 'functional',
+    },
+    {
+      caps: ',',
+      small: ',',
+      special: '',
+      keyType: 'functional',
+    },
+    {
+      caps: 'Space',
+      small: 'Space',
+      special: '',
+      keyType: 'functional',
+    },
+    {
+      caps: '.',
+      small: '.',
+      special: '',
+      keyType: 'functional',
+    },
+    {
+      caps: '&#8629;',
+      small: '&#8629;',
+      special: '',
+      keyType: 'functional',
+    },
+  ],
+];
+const keyboardDataDesktop = [
   [
     {
       caps: '`', // Primary
@@ -345,8 +553,14 @@ export const keyboardData = [
   ],
 ];
 
+const isMobile = window.innerWidth <= 500;
+
+export const keyboardData = isMobile ? keyboardDataMobile : keyboardDataDesktop;
+
 export const state = {
   capsLock: false,
   shift: false,
+  isMobile,
+  mobileCapsLock: false,
   content: '',
 };

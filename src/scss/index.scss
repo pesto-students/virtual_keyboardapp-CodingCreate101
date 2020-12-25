@@ -23,32 +23,57 @@ body {
 
 #keyBoardContainer {
   min-width: 99%;
+  position: absolute;
+  bottom: 0px;
 }
 
 @media (min-width: 500px) {
   #mainTextArea {
     min-width: 500px;
   }
+
+  #keyBoardContainer {
+    min-width: 99%;
+    position: initial;
+    bottom: 0px;
+  }
 }
 
 .row0 {
-  grid-template-columns: 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% auto;
+  grid-template-columns: auto 10% 10% 10% 10% 10% 10% 10% 10% 10%;
 }
 .row1 {
-  grid-template-columns: auto 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 9%;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto;
 }
 
 .row2 {
-  grid-template-columns: auto 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% auto;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto;
 }
 
 .row3 {
-  grid-template-columns: auto 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% auto;
+  grid-template-columns: auto 40px 40% 40px auto;
 }
 
-.row4 {
-  grid-template-columns: 40%;
-  justify-content: center;
+@media (min-width: 500px) {
+  .row0 {
+    grid-template-columns: 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% auto;
+  }
+  .row1 {
+    grid-template-columns: auto 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 9%;
+  }
+
+  .row2 {
+    grid-template-columns: auto 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% auto;
+  }
+
+  .row3 {
+    grid-template-columns: auto 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% 6.5% auto;
+  }
+
+  .row4 {
+    grid-template-columns: 40%;
+    justify-content: center;
+  }
 }
 
 .keysRow {
@@ -111,6 +136,11 @@ body {
 #switch-container {
   position: absolute;
   top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   .switch {
     position: relative;
     display: inline-block;

@@ -4,6 +4,7 @@ import {
   removeKeyboard,
   renderKeyboard,
   setAlphabetKeysView,
+  setMobileKeysView,
   setSpecialKeysView,
 } from '../view/keyboard.view.js';
 import { updateTextField } from '../view/textarea.view.js';
@@ -37,10 +38,28 @@ export function handleKeyPress(letter) {
     case 'Enter':
       state.content += '\n';
       break;
+    // Mobile functional key cases
+    case '←': // Backspace
+      state.content = state.content.slice(0, -1);
+      break;
+    case '⇑': // Shift and CapsLock key
+      mobileToggleCapsLockKey();
+      break;
+    case '?12': // Special char key
+      mobileToggleShiftKey();
+      break;
+    case '↵': // Enter key
+      state.content += '\n';
+      break;
+
     default:
       if (state.shift) {
-        turnOffShiftKey();
+        state.isMobile ? mobileTurnOffShiftKey() : turnOffShiftKey();
       }
+      if (!state.mobileCapsLock && state.isMobile) {
+        mobileTurnOffCapsLockKey();
+      }
+
       state.content += letter;
       break;
   }
@@ -76,3 +95,30 @@ function turnOffShiftKey() {
   if (!state.capsLock) setAlphabetKeysView('small');
   setSpecialKeysView('normal');
 }
+
+// Mobile
+const mobileToggleShiftKey = () => (state.shift ? mobileTurnOffShiftKey() : mobileTurnOnShiftKey());
+const mobileToggleCapsLockKey = () =>
+  state.capsLock ? mobileTurnOffCapsLockKey() : mobileTurnOnCapsLockKey();
+
+const mobileTurnOffShiftKey = () => {
+  state.shift = false;
+  getElementsByDataAttribute('active', '?12').forEach(key => key.classList.remove('highLight'));
+  setMobileKeysView('normal');
+};
+const mobileTurnOnShiftKey = () => {
+  state.shift = true;
+  getElementsByDataAttribute('active', '?12').forEach(key => key.classList.add('highLight'));
+  setMobileKeysView('special');
+};
+
+const mobileTurnOffCapsLockKey = () => {
+  state.capsLock = false;
+  getElementsByDataAttribute('active', '⇑').forEach(key => key.classList.remove('highLight'));
+  setMobileKeysView('small');
+};
+export const mobileTurnOnCapsLockKey = () => {
+  state.capsLock = true;
+  getElementsByDataAttribute('active', '⇑').forEach(key => key.classList.add('highLight'));
+  setMobileKeysView('caps');
+};
