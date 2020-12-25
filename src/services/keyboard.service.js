@@ -1,12 +1,21 @@
 import { state } from '../data/keyboard.data.js';
 import { getElementById, getElementsByDataAttribute } from '../utilities.js';
-import { setAlphabetKeysView, setSpecialKeysView } from '../view/keyboard.view.js';
+import {
+  removeKeyboard,
+  renderKeyboard,
+  setAlphabetKeysView,
+  setSpecialKeysView,
+} from '../view/keyboard.view.js';
 import { updateTextField } from '../view/textarea.view.js';
 
-getElementById('keyBoardContainer').addEventListener('mouseup', function (e) {
+getElementById('keyBoardContainer').addEventListener('mouseup', e => {
   const pressedButton = e.target.dataset.hasOwnProperty('active') ? e.target : e.target.parentNode;
   if (pressedButton.dataset.active) handleKeyPress(pressedButton.dataset.active);
 });
+
+getElementById('keyboard-on-off-button').addEventListener('change', e =>
+  e.target.checked ? renderKeyboard() : removeKeyboard()
+);
 
 export function handleKeyPress(letter) {
   switch (letter) {
