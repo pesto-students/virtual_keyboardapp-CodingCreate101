@@ -26,6 +26,8 @@ export function renderKeyboard() {
   keyBoardContainer.innerHTML = keyboardStructure;
 }
 
+export const removeKeyboard = () => (getElementById('keyBoardContainer').innerHTML = '');
+
 export const setAlphabetKeysView = smallOrCaps => {
   const alphabetsKeys = getElementsByDataAttribute('keytype', 'alphabet');
   switch (smallOrCaps) {
